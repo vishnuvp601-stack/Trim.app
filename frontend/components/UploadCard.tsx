@@ -15,7 +15,6 @@ export default function UploadCard({ onStateChange }: UploadCardProps) {
   const [progress, setProgress] = useState(0);
   const [fileName, setFileName] = useState('');
   const [fileSize, setFileSize] = useState(0);
-  const [downloadedFile, setDownloadedFile] = useState<Blob | null>(null);
   const [conversionTime, setConversionTime] = useState(0);
   const [conversionId, setConversionId] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
