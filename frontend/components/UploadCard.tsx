@@ -197,7 +197,7 @@ export default function UploadCard({ onStateChange }: UploadCardProps) {
         if (data.status === 'done') {
           // Conversion complete! Now get the PDF URL from backend
           try {
-            const pdfResponse = await fetch(`/api/pdf/${conversionId}`);
+            const pdfResponse = await fetch(`/api/get-pdf?id=${conversionId}`);
             if (pdfResponse.ok) {
               const pdfData = await pdfResponse.json();
               setPdfUrl(pdfData.pdf_url);
