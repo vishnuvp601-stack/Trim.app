@@ -17,11 +17,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate unique file path with timestamp
-    const timestamp = Date.now();
-    const uniqueFileName = `${timestamp}_${fileName}`;
-    const filePath = `uploads/${uniqueFileName}`;
-
     // Create record in conversions table with 'pending' status
     const { data: conversionData, error: dbError } = await supabase
       .from('conversions')
@@ -40,23 +35,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate presigned URL valid for 1 hour
-    const { data: signedUrlData, error: urlError } = await supabase.storage
-      .from('architectfiles')
-      .createSignedUrl(filePath, 3600);
-
-    if (urlError) {
-      console.error('Presigned URL error:', urlError);
-      return NextResponse.json(
-        { error: 'Failed to generate upload URL' },
-        { status: 500 }
-      );
-    }
-
     return NextResponse.json({
-      presignedUrl: signedUrlData.signedUrl,
       conversionId: conversionData.id,
-      filePath: filePath,
     });
   } catch (error) {
     console.error('API error:', error);
