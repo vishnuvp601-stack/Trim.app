@@ -117,15 +117,14 @@ export default function UploadCard({ onStateChange }: UploadCardProps) {
         .from('architectfiles')
         .upload(filePath, file, {
           contentType: file.type,
-          onUploadProgress: (progress) => {
-            const percentComplete = (progress.loaded / progress.total) * 50; // 0-50% for upload
-            setProgress(percentComplete);
-          },
         });
 
       if (error) {
         throw error;
       }
+
+      // Update progress to 50% after successful upload
+      setProgress(50);
     } catch (error) {
       throw new Error(`Upload to Supabase failed: ${error}`);
     }
