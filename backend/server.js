@@ -76,7 +76,7 @@ async function downloadFileFromSupabase(filePath) {
 
 // Helper: Convert file to PDF using LibreOffice
 async function convertToPdf(inputFile) {
-  return new Promise((command, reject) => {
+  return new Promise((resolve, reject) => {
     const tempDir = os.tmpdir();
     const inputName = path.parse(inputFile).name;
     const outputPdf = path.join(tempDir, `${inputName}.pdf`);
@@ -99,7 +99,7 @@ async function convertToPdf(inputFile) {
       }
       
       console.log(`✓ Conversion complete: ${outputPdf}`);
-      command(outputPdf);
+      resolve(outputPdf);
     });
   });
 }
